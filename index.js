@@ -47,9 +47,17 @@ const writeWelcomeMessage = () => {
     .addEventListener("click", onClickLogout)
 }
 
+const saveEmailLogged = () => {
+  const email = document.getElementById("exampleInputEmail1").value;
+  localStorage.setItem("email", email);
+}
+
+const removeEmailLogged = () => {
+  localStorage.removeItem("email");
+}
 
 const onClickLogin = () => {
-  // saveEmailLogged();
+  saveEmailLogged();
   writeWelcomeMessage();
 
   // saveUserToStorage();
@@ -57,7 +65,7 @@ const onClickLogin = () => {
 
 const onClickLogout = () => {
   writeFormLogin();
-  //    deleteEmailLogged();
+  removeEmailLogged();
 }
 
 

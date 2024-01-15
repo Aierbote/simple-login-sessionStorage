@@ -40,7 +40,7 @@ const writeWelcomeMessage = () => {
       <button class="btn btn-outline-primary" type="submit" id="my-button-logout">Logut</button>
     </div>
   </header>
-  <h1>${message}</h1>
+  <h1>${message} ${getEmailLogged()}</h1>
   `
 
   document.getElementById("my-button-logout")
@@ -60,7 +60,7 @@ const onClickLogin = () => {
   saveEmailLogged();
   writeWelcomeMessage();
 
-  // saveUserToStorage();
+  saveUserToStorage();
 }
 
 const onClickLogout = () => {
@@ -68,6 +68,27 @@ const onClickLogout = () => {
   removeEmailLogged();
 }
 
+const getEmailLogged = () => {
+  return localStorage.getItem("email");
+}
+
+const saveUserToStorage = () => {
+  const prevUsers = JSON.parse(localStorage.getItem("users")) || [];
+  const newUsers = [...prevUsers, {
+    email: getEmailLogged(),
+    counter: 1,
+    lastAccess: new Date()
+  }]
+
+  localStorage.setItem(
+    "users",
+    JSON.stringify(newUsers)
+  )
+}
+
+const getUserLogged = () => { }
+
+const removeUserFromStorage = () => { }
 
 window.onload = () => {
   // document.getElementById("my-button-login")

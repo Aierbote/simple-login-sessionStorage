@@ -74,16 +74,35 @@ const getEmailLogged = () => {
 
 const saveUserToStorage = () => {
   const prevUsers = JSON.parse(localStorage.getItem("users")) || [];
-  const newUsers = [...prevUsers, {
-    email: getEmailLogged(),
-    counter: 1,
-    lastAccess: new Date()
-  }]
 
-  localStorage.setItem(
-    "users",
-    JSON.stringify(newUsers)
-  )
+  const email = getEmailLogged();
+  const userIndex = prevUsers.findIndex((user_) => user_.email === email);
+
+  if (userIndex === -1) {
+    // In case it was not found, new user
+    const newUsers = [...prevUsers, {
+      email: getEmailLogged(),
+      counter: 1,
+      lastAccess: new Date()
+    }];
+
+    localStorage.setItem(
+      "users",
+      JSON.stringify(newUsers)
+    )
+  } else {
+    // In case of found, update that specific user
+    const newUsers = prevUsers.map((user_) =>
+      user_.email === email
+        ? { ...user_, counter: user_.counter + 1, lastAccess: new Date() }
+        : { ...user_ }
+    )
+
+    localStorage.setItem(
+      "users",
+      JSON.stringify(newUsers)
+    )
+  }
 }
 
 const getUserLogged = () => { }

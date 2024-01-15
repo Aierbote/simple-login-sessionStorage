@@ -4,7 +4,7 @@ const loginPage = `
 
   <form class="d-flex justify-content-center align-items-center flex-column p-2"
   style="height: 100%; width: 100%;"
-  preventDefault
+  onsubmit="event.preventDefault()"
   action="#"
   >
     <div class="mb-3">
@@ -31,20 +31,44 @@ const writeFormLogin = () => {
 }
 
 const writeWelcomeMessage = () => {
-  // if user.counter >= 2
-  const message = (false) ? "Bentornat*" : "Benvenut*"
+  const user = getUserLogged();
+  const message = (!!user && user.counter >= 2) ? "Bentornat*" : "Benvenut*"
 
   document.getElementById("root").innerHTML = `
-  <header class="bg-black p-4">
-    <div class="container-fluid d-flex flex-row justify-content-end">
-      <button class="btn btn-outline-primary" type="submit" id="my-button-logout">Logout</button>
-    </div>
-  </header>
-  <h1>${message} ${getEmailLogged()}</h1>
+    <header class="bg-black p-4">
+      <div
+      class="container-fluid d-flex flex-row justify-content-end"
+      id="navbar"
+      >
+        <button class="btn btn-outline-primary" type="submit" id="my-button-logout">
+        Logout
+        </button>
+      </div>
+      </header>
+    <h1>${message} ${getEmailLogged()}</h1>
   `
 
   document.getElementById("my-button-logout")
     .addEventListener("click", onClickLogout)
+}
+
+const writeCountAndAccess = () => {
+  const user = getUserLogged();
+
+  if (!!user && user.counter >= 2) {
+    const buttonLogout = document.getElementById("my-button-logout");
+    const countAndAccess = document.createElement("div");
+    countAndAccess.innerHTML = `
+      <div class="rounded-5 text-white bg-primary p-2">${user.counter}</div>
+      <div class="bg-white p-2 rounded-2">${user.lastAccess}</div>
+    `;
+    countAndAccess.classList = ["container-fluid d-flex flex-row justify-content-start align-items-center"];
+    countAndAccess.id = "statusLogin";
+
+
+
+    document.getElementById("navbar").insertBefore(countAndAccess, buttonLogout);
+  }
 }
 
 const saveEmailLogged = () => {
@@ -61,6 +85,7 @@ const onClickLogin = () => {
   writeWelcomeMessage();
 
   saveUserToStorage();
+  writeCountAndAccess();
 }
 
 const onClickLogout = () => {
@@ -105,14 +130,24 @@ const saveUserToStorage = () => {
   }
 }
 
-const getUserLogged = () => { }
+const getUserLogged = () => {
+  const email = getEmailLogged();
+  const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+  const user = allUsers.find((user_) => user_.email === email);
+
+  return user;
+}
 
 const removeUserFromStorage = () => { }
 
 window.onload = () => {
-  const email = getEmailLogged();
-  const isLogged = !!email;
-  if (isLogged) { writeWelcomeMessage(); }
+  const user = getUserLogged();
+  const isLogged = !!user;
+  if (isLogged) {
+    writeWelcomeMessage();
+
+    writeCountAndAccess();
+  }
   else { writeFormLogin(); }
 }
 

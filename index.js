@@ -110,9 +110,9 @@ const getUserLogged = () => { }
 const removeUserFromStorage = () => { }
 
 window.onload = () => {
-  // document.getElementById("my-button-login")
-  //   .addEventListener("click", onClickLogin);
-  writeFormLogin();
-
+  const email = getEmailLogged();
+  const isLogged = !!email;
+  if (isLogged) { writeWelcomeMessage(); }
+  else { writeFormLogin(); }
 }
 

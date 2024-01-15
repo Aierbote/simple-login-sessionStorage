@@ -37,7 +37,7 @@ const writeWelcomeMessage = () => {
   document.getElementById("root").innerHTML = `
   <header class="bg-black p-4">
     <div class="container-fluid d-flex flex-row justify-content-end">
-      <button class="btn btn-outline-primary" type="submit" id="my-button-logout">Logut</button>
+      <button class="btn btn-outline-primary" type="submit" id="my-button-logout">Logout</button>
     </div>
   </header>
   <h1>${message} ${getEmailLogged()}</h1>

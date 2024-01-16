@@ -6,10 +6,11 @@ const loginPage = `
   style="height: 100%; width: 100%;"
   onsubmit="event.preventDefault()"
   action="#"
+  id="my-form-login"
   >
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1">
+      <input type="email" class="form-control" id="exampleInputEmail1" required>
     </div>
     <div class="mb-3 flex-grow-0">
       <button type="submit" class="btn btn-primary" id="my-button-login" >Login</button>
@@ -81,11 +82,14 @@ const removeEmailLogged = () => {
 }
 
 const onClickLogin = () => {
-  saveEmailLogged();
-  writeWelcomeMessage();
+  if (checkEmail()) {
+    saveEmailLogged();
+    writeWelcomeMessage();
 
-  saveUserToStorage();
-  writeCountAndAccess();
+    saveUserToStorage();
+    writeCountAndAccess();
+  }
+
 }
 
 const onClickLogout = () => {
@@ -138,7 +142,18 @@ const getUserLogged = () => {
   return user;
 }
 
-const removeUserFromStorage = () => { }
+const checkEmail = () => {
+  const regexEmail = /^[a-zA-Z0-9.-|(\+)]+@(\w+|\W+)(\.(\w{2,})){1,2}$/;
+  const emailInput = document.getElementById("exampleInputEmail1");
+
+  const isValid = regexEmail.test(emailInput.value);
+
+  if (isValid) { return true }
+  else {
+    emailInput.classList.add("is-invalid");
+    return false;
+  }
+}
 
 window.onload = () => {
   const user = getUserLogged();

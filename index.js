@@ -61,7 +61,7 @@ const writeCountAndAccess = () => {
     const buttonLogout = document.getElementById("my-button-logout");
     const countAndAccess = document.createElement("div");
     countAndAccess.innerHTML = `
-      <div class="rounded-5 text-white bg-primary p-2">${user.counter}</div>
+      <div class="rounded-circle text-white btn btn-primary disabled">${user.counter}</div>
       <div class="bg-white p-2 rounded-2">${lastAccessDate.toLocaleString()}</div>
     `;
     countAndAccess.classList = ["container-fluid d-flex flex-row justify-content-start align-items-center"];

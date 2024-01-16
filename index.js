@@ -56,16 +56,16 @@ const writeCountAndAccess = () => {
   const user = getUserLogged();
 
   if (!!user && user.counter >= 2) {
+    const lastAccessDate = new Date(user.lastAccess);
+
     const buttonLogout = document.getElementById("my-button-logout");
     const countAndAccess = document.createElement("div");
     countAndAccess.innerHTML = `
       <div class="rounded-5 text-white bg-primary p-2">${user.counter}</div>
-      <div class="bg-white p-2 rounded-2">${user.lastAccess}</div>
+      <div class="bg-white p-2 rounded-2">${lastAccessDate.toLocaleString()}</div>
     `;
     countAndAccess.classList = ["container-fluid d-flex flex-row justify-content-start align-items-center"];
     countAndAccess.id = "statusLogin";
-
-
 
     document.getElementById("navbar").insertBefore(countAndAccess, buttonLogout);
   }

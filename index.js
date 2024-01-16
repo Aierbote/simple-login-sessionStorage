@@ -40,7 +40,7 @@ const writeWelcomeMessage = () => {
       class="container-fluid d-flex flex-row justify-content-end"
       id="navbar"
       >
-        <button class="btn btn-outline-primary" type="submit" id="my-button-logout">
+        <button class="btn btn-outline-primary border-2" type="submit" id="my-button-logout">
         Logout
         </button>
       </div>

@@ -24,6 +24,7 @@ const loginPage = `
 
 const writeFormLogin = () => {
   // document.querySelector("#root").replaceWith(loginPage);
+  document.querySelector("#root").classList.add("flex-grow-1")
   document.querySelector("#root").innerHTML = loginPage;
 
 
@@ -39,6 +40,7 @@ const writeFormLogin = () => {
 const writeWelcomeMessage = () => {
   const user = getUserLogged();
   const message = (!!user && user.counter >= 2) ? "Bentornat*" : "Benvenut*"
+  document.querySelector("#root").classList.remove("flex-grow-1")
 
   document.getElementById("root").innerHTML = `
     <header class="bg-black p-4">

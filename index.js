@@ -13,7 +13,7 @@ const loginPage = `
       <input type="email" class="form-control" id="exampleInputEmail1" required>
     </div>
     <div class="mb-3 flex-grow-0">
-      <button type="submit" class="btn btn-primary" id="my-button-login" >Login</button>
+      <button type="submit" class="btn btn-primary" id="my-button-login" disabled>Login</button>
     </div>
   </form>
 
@@ -29,6 +29,11 @@ const writeFormLogin = () => {
 
   document.getElementById("my-button-login")
     .addEventListener("click", onClickLogin);
+  document.getElementById("exampleInputEmail1")
+    .addEventListener("input", () => {
+      document.getElementById("my-button-login").removeAttribute("disabled");
+      checkEmail()
+    });
 }
 
 const writeWelcomeMessage = () => {
@@ -73,7 +78,7 @@ const writeCountAndAccess = () => {
 }
 
 const saveEmailLogged = () => {
-  const email = document.getElementById("exampleInputEmail1").value;
+  const email = document.getElementById("exampleInputEmail1").value.trim();
   localStorage.setItem("email", email);
 }
 
@@ -143,12 +148,16 @@ const getUserLogged = () => {
 }
 
 const checkEmail = () => {
-  const regexEmail = /^[a-zA-Z0-9.-|(\+)]+@(\w+|\W+)(\.(\w{2,})){1,2}$/;
+  const regexEmail = /^[a-zA-Z0-9.-|(\+)]+@(\w+)(\.(\w{2,})){1,2}$/;
   const emailInput = document.getElementById("exampleInputEmail1");
 
   const isValid = regexEmail.test(emailInput.value);
 
-  if (isValid) { return true }
+  if (isValid) {
+    emailInput.classList.remove("is-invalid");
+    emailInput.classList.add("is-valid")
+    return true;
+  }
   else {
     emailInput.classList.add("is-invalid");
     return false;

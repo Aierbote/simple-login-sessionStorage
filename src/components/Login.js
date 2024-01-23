@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { memo } from "react";
 
-export const Login = ({ style }) => {
+export const Login = memo(({ style }) => {
   // state variable
   const [textFilled, setTextFilled] = useState(false);
 
@@ -36,6 +37,7 @@ export const Login = ({ style }) => {
           <button
             type="submit"
             className={textFilled ? "btn btn-primary" : "btn btn-primary disabled"}
+            onClick={() => { console.log("click") }}
             id="my-button-login"
           >
             Login
@@ -44,4 +46,4 @@ export const Login = ({ style }) => {
       </form>
     </div>
   )
-}
+})

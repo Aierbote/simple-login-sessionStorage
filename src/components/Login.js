@@ -1,4 +1,15 @@
+import React from "react";
+import { useState } from "react";
+
 export const Login = ({ style }) => {
+  // state variable
+  const [textFilled, setTextFilled] = useState(false);
+
+  const checkIsFilled = (event) => {
+    event.target.value !== ""
+      ? setTextFilled(true)
+      : setTextFilled(false);
+  }
 
   return (
     <div className="col-6 col-lg-4 card">
@@ -17,11 +28,16 @@ export const Login = ({ style }) => {
             type="email"
             className="form-control"
             id="exampleInputEmail1"
+            onChange={checkIsFilled}
             required
           />
         </div>
         <div className="mb-3 flex-grow-0">
-          <button type="submit" className="btn btn-primary" id="my-button-login">
+          <button
+            type="submit"
+            className={textFilled ? "btn btn-primary" : "btn btn-primary disabled"}
+            id="my-button-login"
+          >
             Login
           </button>
         </div>
@@ -29,5 +45,3 @@ export const Login = ({ style }) => {
     </div>
   )
 }
-
-{/* export default Login; */ }

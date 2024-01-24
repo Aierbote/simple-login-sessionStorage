@@ -1,16 +1,20 @@
 import React from "react";
 import { useState } from "react";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 export const Login = memo(({ style }) => {
   // state variable
   const [textFilled, setTextFilled] = useState(false);
 
-  const checkIsFilled = (event) => {
-    event.target.value !== ""
-      ? setTextFilled(true)
-      : setTextFilled(false);
-  }
+  const checkIsFilled = useCallback(
+    (event) => {
+      event.target.value !== ""
+        ? setTextFilled(true)
+        : setTextFilled(false);
+    }
+    ,
+    [textFilled]
+  )
 
   return (
     <div className="col-6 col-lg-4 card">
@@ -37,7 +41,7 @@ export const Login = memo(({ style }) => {
           <button
             type="submit"
             className={textFilled ? "btn btn-primary" : "btn btn-primary disabled"}
-            onClick={() => { console.log("click") }}
+            onClick={() => { console.log("click");/* TODO : FIXME : isLogged = true */ }}
             id="my-button-login"
           >
             Login
